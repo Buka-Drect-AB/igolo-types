@@ -1,4 +1,4 @@
-# Console Shared Types
+# Shared Types
 
 A TypeScript package containing shared types and classes for console applications.
 
@@ -24,7 +24,7 @@ console-shared-types/
 
 1. Install dependencies:
    ```bash
-   npm install
+   npm install git+https://github.com/Buka-Drect-AB/igolo-types.git
    ```
 
 2. Build the project:
@@ -83,5 +83,5 @@ The project uses TypeScript's compiler to generate JavaScript files and type def
 The package exports all types and classes through the main entry point at `src/index.ts`. When importing from this package, you can access all exported types and classes:
 
 ```typescript
-import { ExampleType, ExampleClass } from 'akub-types';
+import { ExampleType, ExampleClass } from '@akub/igolo-types';
 ``` 

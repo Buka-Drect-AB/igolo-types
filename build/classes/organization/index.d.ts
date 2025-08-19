@@ -1,45 +1,39 @@
 import { BusinessType, DashboardRoles, DocumentSchema } from "../../types";
 import { Model } from "../model";
-interface BankAccount {
-    bank: string;
-    slug?: string;
-    reference?: string;
-    account: string;
-    name: string;
-}
-export interface Integration {
-    subaccount?: string;
-    customer?: string;
-    virtualAccount?: BankAccount;
-    payout?: BankAccount;
-}
 interface Balance {
     current: number;
     lifetime_credits?: number;
     lifetime_debits?: number;
 }
+export interface Address {
+    city: string;
+    country: string;
+    postCode?: string;
+    street: string;
+    state: string;
+}
 export type Organization = {
     name: string;
     slug: string;
-    shortCode: string;
     email?: string;
     image?: string;
     ownerId: string;
-    industry: string;
     referral?: string;
     type: BusinessType;
+    address: Address;
     balance?: {
         live?: Balance | null;
         test?: Balance | null;
     };
-    accepting_payments?: boolean | null;
+    accepting_payments: boolean;
     settlement: {
         automatic_payouts?: boolean;
     };
-    teamUids?: string[] | null | undefined;
-    teamEmails?: string[] | null | undefined;
-    roles: {
-        [key: string]: DashboardRoles;
+    members: {
+        [key: string]: {
+            role: DashboardRoles;
+            uid: string;
+        };
     };
     terms: {
         mandatory: boolean;
@@ -47,27 +41,21 @@ export type Organization = {
     };
 } & DocumentSchema;
 export declare class OrganizationModel extends Model<Organization> {
-    static generateShortCode(name: string): string;
     userRole(uid: string): DashboardRoles | undefined;
+    /**
+   * Override to provide Organization-specific schema properties
+   * Uses the ORGANIZATION_SCHEMA constant to avoid duplication
+   */
+    protected getSchemaProperties(): Set<string>;
+    /**
+     * Override toMap to only return schema-compliant properties
+     * If you want to keep the original toMap behavior, remove this override
+     */
+    toMap(): Record<string, unknown>;
 }
 export type OrgRequest = {
     org: string;
     uid: string;
-} & DocumentSchema;
-export type Venue = {
-    org: string;
-    name: string;
-    slug: string;
-    createdBy: string;
-    image?: string;
-    description?: string;
-    address?: {
-        place?: string;
-        city?: string;
-        state?: string;
-        country?: string;
-    };
-    isActive: boolean;
 } & DocumentSchema;
 export type SettlementAccount = {
     org: string;

@@ -1,21 +1,5 @@
 import { BusinessType, DashboardRoles, DocumentSchema } from "../../types";
 import { Model } from "../model";
-import { generateShortCodeFromName } from '../../utils/system';
-
-interface BankAccount {
-  bank: string;
-  slug?: string;
-  reference?: string;
-  account: string;
-  name: string;
-}
-
-export interface Integration {
-  subaccount?: string;
-  customer?: string;
-  virtualAccount?: BankAccount; // virtual bank account
-  payout?: BankAccount;
-}
 
 interface Balance {
   current: number;
@@ -23,64 +7,95 @@ interface Balance {
   lifetime_debits?: number;
 }
 
+export interface Address {
+  city: string;
+  country: string;
+  postCode?: string;
+  street: string;
+  state: string;
+}
+
+// Schema definition that mirrors the type structure
+const ORGANIZATION_SCHEMA = {
+  // DocumentSchema properties
+  id: true,
+  iat: true,
+  lut: true,
+  // Organization properties
+  name: true,
+  slug: true,
+  email: true,
+  image: true,
+  ownerId: true,
+  address: true,
+  referral: true,
+  type: true,
+  balance: true,
+  accepting_payments: true,
+  settlement: true,
+  members: true,
+  terms: true,
+} as const;
+
 export type Organization = {
   name: string;
   slug: string;
-  shortCode: string;
   email?: string;
   image?: string;
   ownerId: string;
-  industry: string;
   referral?: string;
   type: BusinessType;
+  address: Address;
   balance?: {
     live?: Balance | null;
     test?: Balance | null;
   };
-  accepting_payments?: boolean | null;
+  accepting_payments: boolean;
   settlement: {
     automatic_payouts?: boolean;
   };
-  teamUids?: string[] | null | undefined;
-  teamEmails?: string[] | null | undefined;
-  roles: { [key: string]: DashboardRoles };
+  members: {
+    [key: string]: {
+      role: DashboardRoles;
+      uid: string;
+    },
+  }
   terms: {
     mandatory: boolean;
     marketing: boolean;
   };
 } & DocumentSchema;
 
+// Type-safe validation to ensure schema matches the type exactly
+// This will cause a TypeScript error if the schema doesn't match the Organization type
+const _validateSchema: Record<keyof Organization, true> = ORGANIZATION_SCHEMA;
+
+
 export class OrganizationModel extends Model<Organization> {
-  public static generateShortCode(name: string): string {
-    return generateShortCodeFromName(name);
+  public userRole(uid: string): DashboardRoles | undefined {
+    return this.schema.members[uid]?.role;
   }
 
-  public userRole(uid: string): DashboardRoles | undefined {
-    return this.schema.roles[uid];
+  /**
+ * Override to provide Organization-specific schema properties
+ * Uses the ORGANIZATION_SCHEMA constant to avoid duplication
+ */
+  protected getSchemaProperties(): Set<string> {
+    return new Set(Object.keys(ORGANIZATION_SCHEMA));
+  }
+
+  /**
+   * Override toMap to only return schema-compliant properties
+   * If you want to keep the original toMap behavior, remove this override
+   */
+  toMap(): Record<string, unknown> {
+    return this.toSchemaOnlyMap();
   }
 }
-
 
 export type OrgRequest = {
   org: string;
   uid: string; // authenticated user
-} & DocumentSchema;
-
-
-export type Venue = {
-  org: string; // org id
-  name: string;
-  slug: string;
-  createdBy: string;
-  image?: string;
-  description?: string;
-  address?: {
-    place?: string;
-    city?: string;
-    state?: string;
-    country?: string;
-  }
-  isActive: boolean;
 } & DocumentSchema;
 
 export type SettlementAccount = {

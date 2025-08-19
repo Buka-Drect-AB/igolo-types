@@ -2,7 +2,42 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserModel = void 0;
 const model_1 = require("../model");
+// Schema definition that mirrors the type structure
+const USER_SCHEMA = {
+    // DocumentSchema properties
+    id: true,
+    iat: true,
+    lut: true,
+    // Organization properties
+    naming: true,
+    email: true,
+    photoUrl: true,
+    eid: true,
+    fcm: true,
+    address: true,
+    phone: true,
+    isNewUser: true,
+    security: true,
+    roles: true,
+};
+// Type-safe validation to ensure schema matches the type exactly
+// This will cause a TypeScript error if the schema doesn't match the Organization type
+const _validateSchema = USER_SCHEMA;
 class UserModel extends model_1.Model {
+    /**
+    * Override to provide class-specific schema properties
+    * Uses the USER_SCHEMA constant to avoid duplication
+    */
+    getSchemaProperties() {
+        return new Set(Object.keys(USER_SCHEMA));
+    }
+    /**
+     * Override toMap to only return schema-compliant properties
+     * If you want to keep the original toMap behavior, remove this override
+     */
+    toMap() {
+        return this.toSchemaOnlyMap();
+    }
     get accountIsValid() {
         return this.data.naming.first.length > 1 && this.data.naming.last.length > 1;
     }

@@ -1,7 +1,3 @@
-export declare const BUSINESS_INDUSTRIES: {
-    value: string;
-    label: string;
-}[];
 export interface Authorization {
     customer: {
         test?: string;
@@ -22,7 +18,7 @@ export interface Authorization {
 export type DocumentSchema = {
     id: string;
     iat: Date | null | string | number;
-    updatedAt?: Date | null | string | number;
+    lut?: Date | null | string | number;
 };
 export type reactSelectOptionsType = {
     label: string;

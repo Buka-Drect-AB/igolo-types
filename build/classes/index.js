@@ -17,12 +17,9 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./user/index"), exports);
-__exportStar(require("./organization/index"), exports);
-__exportStar(require("./inventory/index"), exports);
-__exportStar(require("./category/index"), exports);
-__exportStar(require("./staff/index"), exports);
-__exportStar(require("./transaction/index"), exports);
+__exportStar(require("./organization/index"), exports); // landlord
 __exportStar(require("./customer/index"), exports);
 __exportStar(require("./payouts/index"), exports);
-__exportStar(require("./terminal/index"), exports);
+__exportStar(require("./lease/index"), exports);
+__exportStar(require("./inbox/index"), exports);
 //# sourceMappingURL=index.js.map

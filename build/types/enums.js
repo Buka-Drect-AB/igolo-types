@@ -1,47 +1,58 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.environmentType = exports.transactionType = exports.paymentStatus = exports.businessType = exports.authProvider = exports.staffRoles = exports.roles = exports.plans = exports.collections = void 0;
+exports.notificationType = exports.notificationRestrictions = exports.environmentType = exports.transactionType = exports.paymentStatus = exports.businessType = exports.authProvider = exports.roles = exports.plans = exports.collections = void 0;
 exports.collections = {
     users: "users",
-    orgs: "orgs",
-    staffs: "staffs",
-    orgRequests: "orgRequests",
-    venues: "venues", // sub document
-    accounts: "accounts", // sub document
-    subscriptions: "subscriptions",
-    payments: "payments",
-    transactions: "transactions",
-    customers: "customers",
-    categories: "categories",
-    terminals: "terminals",
-    inventory: "inventory", // sub document
+    organizations: "organizations", // a landlord is an organization
+    leases: "leases",
+    logs: "logs",
+    properties: "properties",
+    units: "units",
+    reports: "reports", // maintenance reports
+    charges: "charges", // TODO re-scheme this
+    accounts: (collection, doc) => `${collection}/${doc}/accounts`, // sub collection
+    inbox: (collection, doc) => `${collection}/${doc}/inbox`, // sub collection
 };
 exports.plans = {
     basic: "basic",
     scale: "scale",
 };
 exports.roles = {
-    owner: "owner",
-    admin: "admin",
-    supervisor: "supervisor",
+    manager: "manager",
     viewer: "viewer",
-};
-exports.staffRoles = {
-    processor: "Order processor",
-    cashier: "Transaction handler",
 };
 exports.authProvider = {
     email: "Email address",
+    google: "google.com",
+    apple: "apple.com",
     pasby: "pasby e-ID (National Identification Number)",
     pasbyMail: "pasby and email authentication"
 };
 exports.businessType = {
-    llc: "Limited company",
-    sole: "Sole trader",
+    individual: "Individual",
+    corporate: "Corporate",
+};
+const pStatus = {
+    pending: "pending",
+    cancelled: "cancelled",
+    reviewing: "reviewing",
+    completed: "completed",
+    terminated: "terminated",
+};
+const frequency = {
+    monthly: "monthly",
+    yearly: "yearly",
+    weekly: "weekly",
+    daily: "daily",
+    quarterly: "quarterly",
+    biannually: "biannually",
+    biennial: "biennial",
 };
 exports.paymentStatus = strEnum(['paid', 'pending', 'failed', 'refunded', 'cancelled']);
 exports.transactionType = strEnum(['credit', 'debit']);
 exports.environmentType = strEnum(['live', 'test']);
+exports.notificationRestrictions = strEnum(['owners', 'admin', 'members', 'none']);
+exports.notificationType = strEnum(["alert", "payment", "process", "info", "message", "lease"]);
 function strEnum(o) {
     return o.reduce((res, key) => {
         res[key] = key;

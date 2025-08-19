@@ -9,6 +9,37 @@ export class Model<T extends Record<string, unknown>> {
     return { ...this.data };
   }
 
+  /**
+   * Returns a map containing only properties that are defined in the schema
+   * Subclasses should override getSchemaProperties() to define their allowed properties
+   */
+  toSchemaOnlyMap(): Record<string, unknown> {
+    const allowedProperties = this.getSchemaProperties();
+
+    if (!allowedProperties || allowedProperties.size === 0) {
+      // If no schema properties are defined, return all data (fallback behavior)
+      return { ...this.data };
+    }
+
+    const filteredData: Record<string, unknown> = {};
+
+    for (const key of Object.keys(this.data)) {
+      if (allowedProperties.has(key)) {
+        filteredData[key] = this.data[key];
+      }
+    }
+
+    return filteredData;
+  }
+
+  /**
+   * Override this method in subclasses to define which properties are allowed in the schema
+   * Return null or empty set to disable filtering (returns all properties)
+   */
+  protected getSchemaProperties(): Set<string> | null {
+    return null;
+  }
+
   get schema() {
     return this.data;
   }

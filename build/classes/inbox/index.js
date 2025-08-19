@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.InventoryItemModel = void 0;
+exports.InboxModel = void 0;
 const model_1 = require("../model");
-class InventoryItemModel extends model_1.Model {
+class InboxModel extends model_1.Model {
 }
-exports.InventoryItemModel = InventoryItemModel;
+exports.InboxModel = InboxModel;
 //# sourceMappingURL=index.js.map

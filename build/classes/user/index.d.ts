@@ -3,6 +3,7 @@ import { Model } from "../model";
 export type User = {
     naming: {
         first: string;
+        middle?: string;
         last: string;
     };
     email: string;

@@ -15,4 +15,8 @@ export declare class Model<T extends Record<string, unknown>> {
     protected getSchemaProperties(): Set<string> | null;
     get schema(): T;
     static fromJson<T extends Record<string, unknown>>(this: new (data: T) => any, obj: T): any;
+    static generateID({ prefix, length }: {
+        prefix?: string;
+        length?: number;
+    }): string;
 }

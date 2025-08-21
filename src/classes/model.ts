@@ -1,3 +1,5 @@
+import { generateRandomAlphaNumeric } from "../utils/system";
+
 export class Model<T extends Record<string, unknown>> {
   constructor(protected readonly data: T) { }
 
@@ -46,5 +48,9 @@ export class Model<T extends Record<string, unknown>> {
 
   static fromJson<T extends Record<string, unknown>>(this: new (data: T) => any, obj: T) {
     return new this(obj);
+  }
+
+  public static generateID({ prefix, length }: { prefix?: string, length?: number }) {
+    return `${prefix ?? ''}_${generateRandomAlphaNumeric(length ?? 10)}`;
   }
 }

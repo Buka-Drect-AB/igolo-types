@@ -5,6 +5,7 @@ exports.generateStaffShortCode = generateStaffShortCode;
 exports.unixTimeStampNow = unixTimeStampNow;
 exports.createSlug = createSlug;
 exports.unslug = unslug;
+exports.generateRandomAlphaNumeric = generateRandomAlphaNumeric;
 const nanoid_1 = require("nanoid");
 const nanoid = (0, nanoid_1.customAlphabet)('ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789', 4); // short & clean
 function generateShortCodeFromName(name) {
@@ -47,6 +48,20 @@ function unslug(slug, capitalize = true) {
         .trim();
     if (capitalize) {
         result = result.replace(/(?:^|\s)\S/g, (match) => match.toUpperCase());
+    }
+    return result;
+}
+/**
+ * Random string generator helper
+ * @param {number} length
+ * @return {string} value
+ */
+function generateRandomAlphaNumeric(length) {
+    let result = "";
+    const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    const charactersLength = characters.length;
+    for (let i = 0; i < length; i++) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
     }
     return result;
 }

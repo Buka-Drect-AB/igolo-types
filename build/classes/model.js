@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Model = void 0;
+const system_1 = require("../utils/system");
 class Model {
     constructor(data) {
         this.data = data;
@@ -41,6 +42,9 @@ class Model {
     }
     static fromJson(obj) {
         return new this(obj);
+    }
+    static generateID({ prefix, length }) {
+        return `${prefix !== null && prefix !== void 0 ? prefix : ''}_${(0, system_1.generateRandomAlphaNumeric)(length !== null && length !== void 0 ? length : 10)}`;
     }
 }
 exports.Model = Model;

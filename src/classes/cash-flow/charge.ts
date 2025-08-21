@@ -22,5 +22,7 @@ export type Charge = {
 } & DocumentSchema;
 
 export class ChargeModel extends Model<Charge> {
-
+  public static calculatePercentage(amount: number, percentage: number): number {
+    return (amount * percentage) / 100;
+  }
 }

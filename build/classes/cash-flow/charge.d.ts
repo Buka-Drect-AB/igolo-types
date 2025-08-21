@@ -20,4 +20,5 @@ export type Charge = {
     paidAt?: number | undefined | null;
 } & DocumentSchema;
 export declare class ChargeModel extends Model<Charge> {
+    static calculatePercentage(amount: number, percentage: number): number;
 }

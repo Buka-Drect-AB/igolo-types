@@ -35,6 +35,28 @@ export type Lease = {
     signatureFlow?: string;
 } & DocumentSchema;
 export declare class LeaseModel extends Model<Lease> {
+    /**
+     * Checks if the collection date is within 7 days from now
+     */
+    isWithinSevenDays(): boolean;
+    /**
+     * Checks if the rent is overdue
+     */
+    isOverDue(): boolean;
+    /**
+     * Returns the number of days the rent has been overdue
+     * Returns 0 if not overdue or if collectionDate is null
+     */
+    get overdueDays(): number;
+    /**
+     * Returns the number of days until the rent is due
+     * Returns negative value if overdue, 0 if due today, positive if future due date
+     */
+    get daysUntilDue(): number;
+    /**
+     * Returns a label indicating the status of the lease
+     */
+    get label(): string;
     static calculateNextCollectionDate(due: Date, frequency: PaymentFrequency): string;
 }
 export {};

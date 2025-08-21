@@ -1,6 +1,4 @@
 "use strict";
-// Classes index file
-// Export all class definitions from this directory
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     var desc = Object.getOwnPropertyDescriptor(m, k);
@@ -16,12 +14,5 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-__exportStar(require("./user/index"), exports);
-__exportStar(require("./organization/index"), exports); // landlord
-__exportStar(require("./customer/index"), exports);
-__exportStar(require("./payouts/index"), exports);
-__exportStar(require("./lease/index"), exports);
-__exportStar(require("./inbox/index"), exports);
-__exportStar(require("./cash-flow/index"), exports);
-__exportStar(require("./property/index"), exports);
+__exportStar(require("./rent"), exports);
 //# sourceMappingURL=index.js.map

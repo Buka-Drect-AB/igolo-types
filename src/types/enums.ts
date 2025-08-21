@@ -3,6 +3,7 @@ export const collections = {
   organizations: "organizations", // a landlord is an organization
   leases: "leases",
   logs: "logs",
+  actions: "actions",
   properties: "properties",
   units: "units",
   reports: "reports", // maintenance reports
@@ -53,12 +54,45 @@ const frequency = {
   biennial: "biennial",
 } as const;
 
+
+const ocStatus = {
+  occupied: "occupied",
+  vacant: "vacant",
+  reserved: "reserved",
+  maintenance: "maintenance",
+  unknown: "unknown",
+  unavailable: "unavailable",
+} as const;
+
+const utilities = {
+  parking: "parking",
+  security: "security",
+  gym: "gym",
+  pool: "pool",
+  powerBackup: "power backup",
+  waterSupply: "water supply",
+} as const;
+
+const methods = {
+  bank_transfer: "Bank Transfer",
+  direct_debit: "Direct debit",
+  cash: "Cash",
+  card: "Bank card",
+  check: "Check",
+  money_order: "Money order",
+  online: "Online payment"
+} as const;
+
+
 export const paymentStatus = strEnum(['paid', 'pending', 'failed', 'refunded', 'cancelled']);
 export const transactionType = strEnum(['credit', 'debit']);
 export const environmentType = strEnum(['live', 'test']);
 export const notificationRestrictions = strEnum(['owners', 'admin', 'members', 'none']);
 export const notificationType = strEnum(["alert", "payment" , "process" , "info" , "message" , "lease"]);
 
+
+export type OccupancyStatus = keyof typeof ocStatus;
+export type Utilities = keyof typeof utilities;
 export type PaymentFrequency = keyof typeof frequency;
 export type PaymentStatus = keyof typeof paymentStatus;
 export type NotificationType = keyof typeof notificationType;
@@ -69,6 +103,7 @@ export type DashboardRoles = keyof typeof roles;
 export type EnvironmentType = keyof typeof environmentType;
 export type AuthenticationProvider = keyof typeof authProvider;
 export type ProcessStatus = keyof typeof pStatus;
+export type PaymentMethod = keyof typeof methods;
 export type NotificationRestriction = keyof typeof notificationRestrictions;
 
 

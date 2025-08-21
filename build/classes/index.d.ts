@@ -4,3 +4,5 @@ export * from './customer/index';
 export * from './payouts/index';
 export * from './lease/index';
 export * from './inbox/index';
+export * from './cash-flow/index';
+export * from './property/index';

@@ -6,6 +6,7 @@ exports.collections = {
     organizations: "organizations", // a landlord is an organization
     leases: "leases",
     logs: "logs",
+    actions: "actions",
     properties: "properties",
     units: "units",
     reports: "reports", // maintenance reports
@@ -47,6 +48,31 @@ const frequency = {
     quarterly: "quarterly",
     biannually: "biannually",
     biennial: "biennial",
+};
+const ocStatus = {
+    occupied: "occupied",
+    vacant: "vacant",
+    reserved: "reserved",
+    maintenance: "maintenance",
+    unknown: "unknown",
+    unavailable: "unavailable",
+};
+const utilities = {
+    parking: "parking",
+    security: "security",
+    gym: "gym",
+    pool: "pool",
+    powerBackup: "power backup",
+    waterSupply: "water supply",
+};
+const methods = {
+    bank_transfer: "Bank Transfer",
+    direct_debit: "Direct debit",
+    cash: "Cash",
+    card: "Bank card",
+    check: "Check",
+    money_order: "Money order",
+    online: "Online payment"
 };
 exports.paymentStatus = strEnum(['paid', 'pending', 'failed', 'refunded', 'cancelled']);
 exports.transactionType = strEnum(['credit', 'debit']);

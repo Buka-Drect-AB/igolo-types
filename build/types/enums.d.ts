@@ -3,6 +3,7 @@ export declare const collections: {
     readonly organizations: "organizations";
     readonly leases: "leases";
     readonly logs: "logs";
+    readonly actions: "actions";
     readonly properties: "properties";
     readonly units: "units";
     readonly reports: "reports";
@@ -45,6 +46,31 @@ declare const frequency: {
     readonly biannually: "biannually";
     readonly biennial: "biennial";
 };
+declare const ocStatus: {
+    readonly occupied: "occupied";
+    readonly vacant: "vacant";
+    readonly reserved: "reserved";
+    readonly maintenance: "maintenance";
+    readonly unknown: "unknown";
+    readonly unavailable: "unavailable";
+};
+declare const utilities: {
+    readonly parking: "parking";
+    readonly security: "security";
+    readonly gym: "gym";
+    readonly pool: "pool";
+    readonly powerBackup: "power backup";
+    readonly waterSupply: "water supply";
+};
+declare const methods: {
+    readonly bank_transfer: "Bank Transfer";
+    readonly direct_debit: "Direct debit";
+    readonly cash: "Cash";
+    readonly card: "Bank card";
+    readonly check: "Check";
+    readonly money_order: "Money order";
+    readonly online: "Online payment";
+};
 export declare const paymentStatus: {
     pending: "pending";
     cancelled: "cancelled";
@@ -74,6 +100,8 @@ export declare const notificationType: {
     message: "message";
     lease: "lease";
 };
+export type OccupancyStatus = keyof typeof ocStatus;
+export type Utilities = keyof typeof utilities;
 export type PaymentFrequency = keyof typeof frequency;
 export type PaymentStatus = keyof typeof paymentStatus;
 export type NotificationType = keyof typeof notificationType;
@@ -84,5 +112,6 @@ export type DashboardRoles = keyof typeof roles;
 export type EnvironmentType = keyof typeof environmentType;
 export type AuthenticationProvider = keyof typeof authProvider;
 export type ProcessStatus = keyof typeof pStatus;
+export type PaymentMethod = keyof typeof methods;
 export type NotificationRestriction = keyof typeof notificationRestrictions;
 export {};

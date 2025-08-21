@@ -38,6 +38,79 @@ export type Lease = {
 } & DocumentSchema;
 
 export class LeaseModel extends Model<Lease> {
+
+  /**
+   * Checks if the collection date is within 7 days from now
+   */
+  public isWithinSevenDays(): boolean {
+    const targetDate = this.schema.collectionDate;
+    if (!targetDate) return false;
+    
+    const now = new Date();
+    const targetDateObj = new Date(targetDate);
+    
+    // Normalize times to midnight for accurate day difference
+    const start = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const end = new Date(targetDateObj.getFullYear(), targetDateObj.getMonth(), targetDateObj.getDate());
+    
+    const dayDiff = Math.abs(Math.floor((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24)));
+    
+    return dayDiff <= 7;
+  }
+
+  /**
+   * Checks if the rent is overdue
+   */
+  public isOverDue(): boolean {
+    const collectionDate = this.schema.collectionDate;
+    if (!collectionDate) return false;
+    
+    const now = new Date();
+    const collectionDateObj = new Date(collectionDate);
+    return collectionDateObj < now;
+  }
+
+  /**
+   * Returns the number of days the rent has been overdue
+   * Returns 0 if not overdue or if collectionDate is null
+   */
+  public get overdueDays(): number {
+    const collectionDate = this.schema.collectionDate;
+    if (!collectionDate) return 0;
+    
+    const now = new Date();
+    const collectionDateObj = new Date(collectionDate);
+    if (collectionDateObj > now) return 0; // Not overdue yet
+    
+    // Calculate the difference in days
+    const difference = now.getTime() - collectionDateObj.getTime();
+    return Math.floor(difference / (1000 * 60 * 60 * 24));
+  }
+
+  /**
+   * Returns the number of days until the rent is due
+   * Returns negative value if overdue, 0 if due today, positive if future due date
+   */
+  public get daysUntilDue(): number {
+    const collectionDate = this.schema.collectionDate;
+    if (!collectionDate) return 0;
+    
+    const now = new Date();
+    const collectionDateObj = new Date(collectionDate);
+    const difference = collectionDateObj.getTime() - now.getTime();
+    return Math.floor(difference / (1000 * 60 * 60 * 24));
+  }
+
+  /**
+   * Returns a label indicating the status of the lease
+   */
+  public get label(): string {
+    if (this.isOverDue()) {
+      return "overdue";
+    }
+    return "pending";
+  }
+
   public static calculateNextCollectionDate(due: Date, frequency: PaymentFrequency): string {
     const nextCollection = new Date(); // Start from today
 

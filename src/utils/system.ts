@@ -1,6 +1,15 @@
-import { customAlphabet } from 'nanoid';
+// Custom function to generate random alphanumeric strings
+function generateRandomAlphanumeric(length: number, charset: string = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'): string {
+  let result = '';
+  const charsetLength = charset.length;
+  for (let i = 0; i < length; i++) {
+    result += charset.charAt(Math.floor(Math.random() * charsetLength));
+  }
+  return result;
+}
 
-const nanoid = customAlphabet('ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789', 4); // short & clean
+// Generate a 4-character random alphanumeric string (replaces nanoid)
+const generateShortId = () => generateRandomAlphanumeric(4, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789');
 
 export function generateShortCodeFromName(name: string): string {
   const clean = name
@@ -8,7 +17,7 @@ export function generateShortCodeFromName(name: string): string {
     .replace(/[^A-Z0-9]/g, '')       // remove spaces and special characters
     .slice(0, 3);                    // take up to first 3 letters (e.g. "AKU" from "Akub Ventures")
 
-  const suffix = nanoid();           // e.g., "9X2Q"
+  const suffix = generateShortId();   // e.g., "9X2Q"
   return `${clean}-${suffix}`;       // e.g., "AKU-9X2Q"
 }
 

@@ -6,14 +6,23 @@ exports.unixTimeStampNow = unixTimeStampNow;
 exports.createSlug = createSlug;
 exports.unslug = unslug;
 exports.generateRandomAlphaNumeric = generateRandomAlphaNumeric;
-const nanoid_1 = require("nanoid");
-const nanoid = (0, nanoid_1.customAlphabet)('ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789', 4); // short & clean
+// Custom function to generate random alphanumeric strings
+function generateRandomAlphanumeric(length, charset = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789') {
+    let result = '';
+    const charsetLength = charset.length;
+    for (let i = 0; i < length; i++) {
+        result += charset.charAt(Math.floor(Math.random() * charsetLength));
+    }
+    return result;
+}
+// Generate a 4-character random alphanumeric string (replaces nanoid)
+const generateShortId = () => generateRandomAlphanumeric(4, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789');
 function generateShortCodeFromName(name) {
     const clean = name
         .toUpperCase()
         .replace(/[^A-Z0-9]/g, '') // remove spaces and special characters
         .slice(0, 3); // take up to first 3 letters (e.g. "AKU" from "Akub Ventures")
-    const suffix = nanoid(); // e.g., "9X2Q"
+    const suffix = generateShortId(); // e.g., "9X2Q"
     return `${clean}-${suffix}`; // e.g., "AKU-9X2Q"
 }
 function generateStaffShortCode(orgShortCode, staffData) {

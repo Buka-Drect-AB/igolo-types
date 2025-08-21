@@ -73,7 +73,7 @@ const utilities = {
   waterSupply: "water supply",
 } as const;
 
-const methods = {
+export const methods = {
   bank_transfer: "Bank Transfer",
   direct_debit: "Direct debit",
   cash: "Cash",

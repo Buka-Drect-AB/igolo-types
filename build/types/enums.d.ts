@@ -62,7 +62,7 @@ declare const utilities: {
     readonly powerBackup: "power backup";
     readonly waterSupply: "water supply";
 };
-declare const methods: {
+export declare const methods: {
     readonly bank_transfer: "Bank Transfer";
     readonly direct_debit: "Direct debit";
     readonly cash: "Cash";

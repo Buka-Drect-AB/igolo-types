@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.notificationType = exports.notificationRestrictions = exports.environmentType = exports.transactionType = exports.paymentStatus = exports.businessType = exports.authProvider = exports.roles = exports.plans = exports.collections = void 0;
+exports.notificationType = exports.notificationRestrictions = exports.environmentType = exports.transactionType = exports.paymentStatus = exports.methods = exports.businessType = exports.authProvider = exports.roles = exports.plans = exports.collections = void 0;
 exports.collections = {
     users: "users",
     organizations: "organizations", // a landlord is an organization
@@ -65,7 +65,7 @@ const utilities = {
     powerBackup: "power backup",
     waterSupply: "water supply",
 };
-const methods = {
+exports.methods = {
     bank_transfer: "Bank Transfer",
     direct_debit: "Direct debit",
     cash: "Cash",

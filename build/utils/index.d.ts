@@ -27,3 +27,12 @@ export declare function getEnumValueByString<T extends Record<string, string>>(e
  */
 export declare function isValidEnumKey<T extends Record<string, string>>(enumObj: T, key: string): key is Extract<keyof T, string>;
 export declare function normalize(text: string): string;
+/**
+ * Capitalizes the first letter of each word in a string
+ * @param text - The input string to capitalize
+ * @returns The string with each word capitalized
+ * @example
+ * capitalizeWords("hello world") // returns "Hello World"
+ * capitalizeWords("john doe") // returns "John Doe"
+ */
+export declare function capitalizeWords(text: string): string;

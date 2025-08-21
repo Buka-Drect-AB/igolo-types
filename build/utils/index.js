@@ -5,6 +5,7 @@ exports.getEnumValueSafe = getEnumValueSafe;
 exports.getEnumValueByString = getEnumValueByString;
 exports.isValidEnumKey = isValidEnumKey;
 exports.normalize = normalize;
+exports.capitalizeWords = capitalizeWords;
 /**
  * Generic function to get enum value by key
  * @param enumObj - The enum object to search in
@@ -46,5 +47,21 @@ function isValidEnumKey(enumObj, key) {
 }
 function normalize(text) {
     return text.trim().toLowerCase();
+}
+/**
+ * Capitalizes the first letter of each word in a string
+ * @param text - The input string to capitalize
+ * @returns The string with each word capitalized
+ * @example
+ * capitalizeWords("hello world") // returns "Hello World"
+ * capitalizeWords("john doe") // returns "John Doe"
+ */
+function capitalizeWords(text) {
+    if (!text)
+        return text;
+    return text
+        .split(' ')
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+        .join(' ');
 }
 //# sourceMappingURL=index.js.map

@@ -57,3 +57,20 @@ export function isValidEnumKey<T extends Record<string, string>>(
 export function normalize(text: string): string {
   return text.trim().toLowerCase();
 }
+
+/**
+ * Capitalizes the first letter of each word in a string
+ * @param text - The input string to capitalize
+ * @returns The string with each word capitalized
+ * @example
+ * capitalizeWords("hello world") // returns "Hello World"
+ * capitalizeWords("john doe") // returns "John Doe"
+ */
+export function capitalizeWords(text: string): string {
+  if (!text) return text;
+  
+  return text
+    .split(' ')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+    .join(' ');
+}

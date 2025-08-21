@@ -1,6 +1,6 @@
 import { Address, DocumentSchema, OccupancyStatus, PaymentFrequency, Utilities } from "../..";
-import { StringHelper } from "../../utils/strings";
 import { Model } from "../model";
+import { capitalizeWords } from "../../utils";
 
 export type Property = {
   currency: string;
@@ -25,7 +25,7 @@ export type Unit = {
 export class PropertyModel extends Model<Property> {
 
   public address() {
-    return `${this.schema.address.street}, ${this.schema.address.city}, ${this.schema.address.state}${this.schema.address.postCode != null ? `, ${this.schema.address.postCode}` : ' '}${StringHelper.capitalizeWords(this.schema.address.country)}`;
+    return `${this.schema.address.street}, ${this.schema.address.city}, ${this.schema.address.state}${this.schema.address.postCode != null ? `, ${this.schema.address.postCode}` : ' '}${capitalizeWords(this.schema.address.country)}`;
   }
 }
 

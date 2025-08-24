@@ -6,6 +6,7 @@ export type Rent = {
   currency: string;
   landlord: string;
   due: string;
+  nextcollectionDate?: string;
   updatedBy?: string;
   lease: string;
   status: "paid" | "pending" | "stale" | "incomplete" | "in_review";
